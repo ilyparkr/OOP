@@ -1,7 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-public class TextEditor {
+import java.io.*;
+public class TextEditor implements ActionListener {
     private JFrame fr;
     private JTextArea ta;
     private JMenuBar mb;
@@ -29,7 +30,33 @@ public class TextEditor {
         
         fr.pack();
         fr.setVisible(true);
+        
+        i1.addActionListener(this);
+        i2.addActionListener(this);
+        i3.addActionListener(this);
+        i4.addActionListener(this);
+        
     }
+    @Override
+    public void actionPerformed(ActionEvent ae){
+        if (ae.getSource().equals(i1)){
+            ta.setText("");
+        }
+        if (ae.getSource().equals(i2)){
+            JFileChooser fc = new JFileChooser();
+            fc.showOpenDialog(fr);
+            File f = fc.getSelectedFile();
+        }
+        if (ae.getSource().equals(i3)){
+            JFileChooser fc = new JFileChooser();
+            fc.showSaveDialog(fr);
+            File f = fc.getSelectedFile();
+        }
+        if (ae.getSource().equals(i4)){
+            System.exit(0);
+        }
+    }
+    
     public static void main(String[] args) {
         new TextEditor();
     }
