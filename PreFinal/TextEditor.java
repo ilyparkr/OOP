@@ -46,11 +46,26 @@ public class TextEditor implements ActionListener {
             JFileChooser fc = new JFileChooser();
             fc.showOpenDialog(fr);
             File f = fc.getSelectedFile();
+            String str = "";
+            try (FileReader br = new FileReader(f)){
+                int ch;
+                while ((ch = br.read()) != -1){
+                    str += (char)ch;
+                }
+                br.close();
+            }
+            catch(IOException ex){}
+            ta.setText(str);
         }
         if (ae.getSource().equals(i3)){
             JFileChooser fc = new JFileChooser();
             fc.showSaveDialog(fr);
             File f = fc.getSelectedFile();
+            try(FileWriter fw = new FileWriter(f);){
+                String str = ta.getText();
+                fw.write(str);
+            }
+            catch(IOException ex){}
         }
         if (ae.getSource().equals(i4)){
             System.exit(0);
